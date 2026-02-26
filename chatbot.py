@@ -325,7 +325,7 @@ def chatbot_response(user_input, threshold=0.55):
 
         # 🔷 If user asked equation directly
         if is_equation_request and "equation_explaination" in matched_intent:
-            eq = random.choice(matched_intent["equation_explanation"])
+            eq = random.choice(matched_intent["equation_explaination"])
             return format_equation(eq)
 
         return random.choice(matched_intent.get("responses", ["Okay."]))
