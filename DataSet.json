@@ -705,6 +705,624 @@
       "detailed_responses": [
         "Imagine you have a robot friend who has read every book in the world. When you ask for a story about a space-cat, the robot doesn't just copy a page from a book; it knows how 'space' words and 'cat' words fit together and builds a brand new story word-by-word. For pictures, we often use a 'Generative Adversarial Network' (GAN), where one AI tries to paint a picture and another AI acts like a teacher saying 'That doesn't look real yet!' until the painting is perfect. "
       ]
-    }
-  ]
-}
+      },
+      {
+        "tag": "bayesian_theorem",
+        "patterns": [
+          "What is Bayes' Theorem?",
+          "Explain Bayesian inference",
+          "How do computers update beliefs?",
+          "What is prior and posterior?",
+          "How does evidence change probability?"
+        ],
+        "responses": [
+          "Bayes' Theorem is a way for computers to update what they believe when they get new evidence."
+        ],
+        "detailed_responses": [
+          "Imagine you think it's probably going to rain today, but then you see someone walk by with a wet umbrella. Bayes' Theorem helps you use that new clue to become even more sure it's raining! The computer does the same thing with numbers."
+        ],
+        "equation_explaination": [
+          {
+            "equation": "P(A|B) = [P(B|A) * P(A)] / P(B)",
+            "terms": {
+              "P(A|B)": "Probability of A given B (posterior).",
+              "P(B|A)": "Probability of B given A (likelihood).",
+              "P(A)": "Probability of A (prior).",
+              "P(B)": "Probability of B (evidence)."
+            }
+          }
+        ]
+      },
+      {
+        "tag": "decision_tree",
+        "patterns": [
+          "What is a Decision Tree?",
+          "How do decision trees work?",
+          "Explain tree-based models",
+          "How does a computer make decisions?",
+          "Splitting data in machine learning"
+        ],
+        "responses": [
+          "A Decision Tree is like a flowchart that helps a computer make choices by asking a series of questions."
+        ],
+        "detailed_responses": [
+          "Imagine you are playing 20 Questions. Each question you ask splits the possibilities in half. A Decision Tree does the same thing, asking 'Is it bigger than a breadbox?' or 'Is it red?' until it finds the answer!"
+        ]
+      },
+      {
+        "tag": "kmeans_clustering",
+        "patterns": [
+          "What is K-Means Clustering?",
+          "How do computers group data?",
+          "Explain clustering algorithms",
+          "How does K-Means work?",
+          "Finding groups in data"
+        ],
+        "responses": [
+          "K-Means Clustering is a way for computers to find groups in data by putting similar things together."
+        ],
+        "detailed_responses": [
+          "Imagine you have a big box of mixed-up marbles. K-Means helps the computer sort them into piles where each pile has marbles that look alike! It keeps moving the marbles around until each group is just right."
+        ],
+        "equation_explaination": [
+          {
+            "equation": "Σ ||x_i − μ_k||²",
+            "terms": {
+              "x_i": "A data point.",
+              "μ_k": "The center of cluster k.",
+              "Σ": "Sum over all data points and clusters.",
+              "||x_i − μ_k||²": "Squared distance from point to cluster center."
+            }
+          }
+        ]
+      },
+      {
+        "tag": "pca_principal_component_analysis",
+        "patterns": [
+          "What is PCA?",
+          "Explain Principal Component Analysis",
+          "How do you reduce dimensions?",
+          "Why use PCA in machine learning?",
+          "Finding patterns in high-dimensional data"
+        ],
+        "responses": [
+          "PCA is a math trick that helps computers find the most important patterns in lots of data by shrinking it down to just the essentials."
+        ],
+        "detailed_responses": [
+          "Imagine you have a giant coloring book with 100 crayons, but you only need 3 colors to make a beautiful picture. PCA helps the computer pick the best 3 colors (patterns) so it can work faster and see what's important!"
+        ]
+      },
+      {
+        "tag": "deep_reinforcement_learning",
+        "patterns": [
+          "What is Deep Reinforcement Learning?",
+          "How do AIs learn to play video games?",
+          "Explain deep Q-learning",
+          "How does AlphaGo work?",
+          "Combining neural networks and rewards"
+        ],
+        "responses": [
+          "Deep Reinforcement Learning is when a computer uses a neural network to get really good at something by practicing and getting rewards."
+        ],
+        "detailed_responses": [
+          "Imagine a robot playing a video game over and over. It tries different moves, and every time it wins, it gets a gold star! The neural network helps it remember what worked best, so it gets better and better, just like a human gamer."
+        ]
+      },
+      {
+        "tag": "logistic_regression",
+        "patterns": [
+          "What is Logistic Regression?",
+          "How does logistic regression work?",
+          "Explain sigmoid function",
+          "Binary classification with logistic regression",
+          "Why use logistic regression?"
+        ],
+        "responses": [
+          "Logistic Regression is a way for computers to predict yes/no answers using a special S-shaped curve called the sigmoid."
+        ],
+        "detailed_responses": [
+          "Imagine you want to guess if a fruit is an apple or not. Logistic Regression draws a smooth line that helps the computer say, 'This is probably an apple!' or 'Nope, not an apple.'"
+        ],
+        "equation_explaination": [
+          {
+            "equation": "P(y=1|x) = 1 / (1 + e^{-w^Tx})",
+            "terms": {
+              "P(y=1|x)": "Probability of class 1 given input x.",
+              "w^Tx": "Weighted sum of input features.",
+              "e": "Euler's number (about 2.718)."
+            }
+          }
+        ]
+      },
+      {
+        "tag": "knn_k_nearest_neighbors",
+        "patterns": [
+          "What is KNN?",
+          "Explain K-Nearest Neighbors",
+          "How does KNN classify data?",
+          "How do computers find similar things?",
+          "Voting in machine learning"
+        ],
+        "responses": [
+          "K-Nearest Neighbors is a way for computers to look at the closest examples to make a decision."
+        ],
+        "detailed_responses": [
+          "Imagine you move to a new school and want to know which group to join. You look at the 3 kids standing closest to you—if most are playing soccer, you join the soccer group! KNN does the same thing with data."
+        ]
+      },
+      {
+        "tag": "ensemble_learning",
+        "patterns": [
+          "What is ensemble learning?",
+          "Why use multiple models?",
+          "Explain bagging and boosting",
+          "How do ensembles improve accuracy?",
+          "Voting in machine learning"
+        ],
+        "responses": [
+          "Ensemble learning is when computers use a team of models to make better predictions than just one model alone."
+        ],
+        "detailed_responses": [
+          "It's like asking a group of friends to guess how many candies are in a jar. Each friend guesses, and you take the average. The group answer is usually closer to the truth than any single guess!"
+        ]
+      },
+      {
+        "tag": "feature_engineering",
+        "patterns": [
+          "What is feature engineering?",
+          "How do you create features?",
+          "Why is feature selection important?",
+          "Explain feature extraction",
+          "Improving model performance with features"
+        ],
+        "responses": [
+          "Feature engineering is the art of picking and creating the best pieces of information for a computer to learn from."
+        ],
+        "detailed_responses": [
+          "Imagine you are making a sandwich. You pick the best bread, cheese, and veggies to make it delicious. Feature engineering is picking the best ingredients (features) for your model!"
+        ]
+      },
+      {
+        "tag": "overfitting",
+        "patterns": [
+          "What is overfitting?",
+          "Why is overfitting bad?",
+          "How do you prevent overfitting?",
+          "Explain model generalization",
+          "What is underfitting?"
+        ],
+        "responses": [
+          "Overfitting is when a computer learns the training data too well, like memorizing answers instead of understanding the lesson."
+        ],
+        "detailed_responses": [
+          "Imagine you memorize every question on your homework, but then the test has new questions and you get stuck! Overfitting is when a model can't handle anything new because it only remembers the old stuff."
+        ]
+      },
+      {
+        "tag": "cross_validation",
+        "patterns": [
+          "What is cross-validation?",
+          "How do you validate a model?",
+          "Explain k-fold cross-validation",
+          "Why split data into folds?",
+          "Testing model reliability"
+        ],
+        "responses": [
+          "Cross-validation is a way to test how well a computer model will work on new data by splitting the data into parts and testing each part."
+        ],
+        "detailed_responses": [
+          "It's like practicing for a play by acting out different scenes with different friends each time. You make sure you know the whole play, not just one part!"
+        ]
+      },
+      {
+        "tag": "regularization",
+        "patterns": [
+          "What is regularization?",
+          "How does regularization prevent overfitting?",
+          "Explain L1 and L2 regularization",
+          "Why add penalties to models?",
+          "Shrinkage in machine learning"
+        ],
+        "responses": [
+          "Regularization is a trick to stop computers from making their models too complicated, so they don't just memorize the data."
+        ],
+        "detailed_responses": [
+          "Imagine you are packing for a trip and want to bring every toy you own, but your suitcase is too small! Regularization helps you pick only the most important toys (features) so your suitcase (model) isn't overloaded."
+        ]
+      },
+      {
+        "tag": "gradient_descent",
+        "patterns": [
+          "What is gradient descent?",
+          "How do computers learn with gradients?",
+          "Explain optimization in ML",
+          "Finding the minimum in machine learning",
+          "How does a model get better?"
+        ],
+        "responses": [
+          "Gradient Descent is a way for computers to slowly get better at a task by making tiny changes in the right direction."
+        ],
+        "detailed_responses": [
+          "Imagine you are walking down a hill in the fog. You take small steps in the direction that feels steepest until you reach the bottom. That's how a computer finds the best answer!"
+        ],
+        "equation_explaination": [
+          {
+            "equation": "w = w - η∇L(w)",
+            "terms": {
+              "w": "Model weights.",
+              "η": "Learning rate.",
+              "∇L(w)": "Gradient of the loss function."
+            }
+          }
+        ]
+      },
+      {
+        "tag": "early_stopping",
+        "patterns": [
+          "What is early stopping?",
+          "How do you prevent overtraining?",
+          "Why stop training a model early?",
+          "Explain patience in machine learning",
+          "When to stop training?"
+        ],
+        "responses": [
+          "Early stopping is when you stop training a computer model before it starts to memorize the data too much."
+        ],
+        "detailed_responses": [
+          "It's like baking cookies—you take them out of the oven when they're just right, not burnt! Early stopping helps you get the best model without overdoing it."
+        ]
+      },
+      {
+        "tag": "one_hot_encoding",
+        "patterns": [
+          "What is one-hot encoding?",
+          "How do you turn words into numbers?",
+          "Explain categorical data encoding",
+          "Why use one-hot vectors?",
+          "Representing categories in ML"
+        ],
+        "responses": [
+          "One-hot encoding is a way to turn words or categories into numbers so a computer can understand them."
+        ],
+        "detailed_responses": [
+          "Imagine you have three favorite ice cream flavors: chocolate, vanilla, and strawberry. One-hot encoding gives each flavor its own special flag, so the computer knows exactly which one you picked!"
+        ]
+      },
+      {
+        "tag": "dimensionality_reduction",
+        "patterns": [
+          "What is dimensionality reduction?",
+          "Why reduce dimensions in data?",
+          "Explain t-SNE and UMAP",
+          "How do you visualize high-dimensional data?",
+          "Benefits of reducing features"
+        ],
+        "responses": [
+          "Dimensionality reduction is a way to shrink big, complicated data into something simpler and easier to understand."
+        ],
+        "detailed_responses": [
+          "It's like folding a giant map so you can see just the part you need. The computer keeps the most important information and throws away the rest!"
+        ]
+      },
+      {
+        "tag": "transfer_learning",
+        "patterns": [
+          "What is transfer learning?",
+          "How do pre-trained models work?",
+          "Why use transfer learning?",
+          "Explain fine-tuning in ML",
+          "Using knowledge from one task for another"
+        ],
+        "responses": [
+          "Transfer learning is when a computer uses what it learned from one task to help it learn something new, even faster."
+        ],
+        "detailed_responses": [
+          "Imagine you learn to ride a bike, and then you try to ride a scooter. You already know how to balance, so you learn the new skill much faster! Computers do the same thing with transfer learning."
+        ]
+      },
+      {
+        "tag": "hyperparameter_tuning",
+        "patterns": [
+          "What is hyperparameter tuning?",
+          "How do you choose the best settings for a model?",
+          "Explain grid search and random search",
+          "Why are hyperparameters important?",
+          "Optimizing machine learning models"
+        ],
+        "responses": [
+          "Hyperparameter tuning is the process of finding the best settings for a computer model so it works as well as possible."
+        ],
+        "detailed_responses": [
+          "It's like trying different recipes to bake the perfect cake. You change the amount of sugar, flour, or baking time until you get the tastiest result!"
+        ]
+      },
+      {
+        "tag": "auto_ml",
+        "patterns": [
+          "What is AutoML?",
+          "How does automated machine learning work?",
+          "Why use AutoML?",
+          "Explain AutoML pipelines",
+          "Benefits of AutoML"
+        ],
+        "responses": [
+          "AutoML is when computers automatically try different models and settings to find the best one for your data."
+        ],
+        "detailed_responses": [
+          "It's like having a robot chef who tries every possible recipe and picks the tastiest one for you!"
+        ]
+      },
+      {
+        "tag": "model_deployment",
+        "patterns": [
+          "What is model deployment?",
+          "How do you put a model into production?",
+          "Deploying machine learning models",
+          "Serving models to users",
+          "Model deployment best practices"
+        ],
+        "responses": [
+          "Model deployment is the process of making your trained model available for real-world use."
+        ],
+        "detailed_responses": [
+          "It's like finishing a science project and then showing it at the school fair so everyone can see it in action!"
+        ]
+      },
+      {
+        "tag": "model_monitoring",
+        "patterns": [
+          "What is model monitoring?",
+          "Why monitor machine learning models?",
+          "How do you track model performance?",
+          "Detecting model drift",
+          "Model monitoring tools"
+        ],
+        "responses": [
+          "Model monitoring is keeping an eye on your model to make sure it keeps working well after deployment."
+        ],
+        "detailed_responses": [
+          "It's like checking your bike every week to make sure the tires are still full and the brakes work!"
+        ]
+      },
+      {
+        "tag": "data_augmentation",
+        "patterns": [
+          "What is data augmentation?",
+          "How do you make more training data?",
+          "Why use data augmentation?",
+          "Explain image flipping and rotation",
+          "Improving models with augmented data"
+        ],
+        "responses": [
+          "Data augmentation is a way to create more training examples by changing the data you already have."
+        ],
+        "detailed_responses": [
+          "It's like taking a photo and making copies with different colors or angles so the computer can learn from more examples!"
+        ]
+      },
+      {
+        "tag": "imbalanced_data",
+        "patterns": [
+          "What is imbalanced data?",
+          "Why is imbalanced data a problem?",
+          "How do you handle imbalanced datasets?",
+          "Explain oversampling and undersampling",
+          "Class imbalance in machine learning"
+        ],
+        "responses": [
+          "Imbalanced data is when some categories have way more examples than others, making it hard for the computer to learn fairly."
+        ],
+        "detailed_responses": [
+          "Imagine a classroom with 29 cats and 1 dog. If you ask 'Who likes fish?', you'll mostly hear from cats! The computer needs to hear from everyone equally, so we balance the data."
+        ]
+      },
+      {
+        "tag": "outlier_detection",
+        "patterns": [
+          "What is outlier detection?",
+          "How do you find outliers in data?",
+          "Why are outliers important?",
+          "Explain anomaly vs outlier",
+          "Detecting strange data points"
+        ],
+        "responses": [
+          "Outlier detection is finding data points that are very different from the rest."
+        ],
+        "detailed_responses": [
+          "It's like finding a purple banana in a bunch of yellow ones! Outliers can be mistakes or interesting discoveries."
+        ]
+      },
+      {
+        "tag": "model_interpretability",
+        "patterns": [
+          "What is model interpretability?",
+          "Why is interpretability important?",
+          "How do you explain model predictions?",
+          "Explain SHAP and LIME",
+          "Making machine learning transparent"
+        ],
+        "responses": [
+          "Model interpretability is about understanding why a computer made a certain prediction."
+        ],
+        "detailed_responses": [
+          "It's like showing your work in math class so the teacher knows how you got your answer!"
+        ]
+      },
+      {
+        "tag": "catboost",
+        "patterns": [
+          "What is CatBoost?",
+          "Explain CatBoost algorithm",
+          "Why use CatBoost?",
+          "CatBoost vs XGBoost",
+          "Handling categorical data with CatBoost"
+        ],
+        "responses": [
+          "CatBoost is a machine learning algorithm that is really good at handling categories and works fast with lots of data."
+        ],
+        "detailed_responses": [
+          "It's like a super-smart cat that can quickly sort and learn from all kinds of information, especially when there are lots of different types!"
+        ]
+      },
+      {
+        "tag": "lightgbm",
+        "patterns": [
+          "What is LightGBM?",
+          "Explain LightGBM algorithm",
+          "Why use LightGBM?",
+          "LightGBM vs XGBoost",
+          "Benefits of LightGBM"
+        ],
+        "responses": [
+          "LightGBM is a fast, efficient machine learning algorithm for big data and lots of features."
+        ],
+        "detailed_responses": [
+          "It's like a race car for machine learning—super fast and able to handle big, twisty tracks (datasets) with ease!"
+        ]
+      },
+      {
+        "tag": "xgboost",
+        "patterns": [
+          "What is XGBoost?",
+          "Explain XGBoost algorithm",
+          "Why use XGBoost?",
+          "XGBoost vs Random Forest",
+          "Benefits of XGBoost"
+        ],
+        "responses": [
+          "XGBoost is a powerful machine learning algorithm that builds lots of small trees to make really accurate predictions."
+        ],
+        "detailed_responses": [
+          "It's like building a big wall out of lots of tiny bricks. Each brick (tree) helps make the wall (model) stronger and more accurate!"
+        ]
+      },
+      {
+        "tag": "multiclass_classification",
+        "patterns": [
+          "What is multiclass classification?",
+          "How do you classify more than two classes?",
+          "Explain one-vs-rest",
+          "Why is multiclass harder than binary?",
+          "Examples of multiclass problems"
+        ],
+        "responses": [
+          "Multiclass classification is when a computer has to choose between more than two categories."
+        ],
+        "detailed_responses": [
+          "It's like sorting fruit into apples, bananas, and oranges instead of just apples and not-apples!"
+        ]
+      },
+      {
+        "tag": "ordinal_regression",
+        "patterns": [
+          "What is ordinal regression?",
+          "How do you predict ordered categories?",
+          "Explain ordinal vs nominal",
+          "Why use ordinal regression?",
+          "Examples of ordinal data"
+        ],
+        "responses": [
+          "Ordinal regression is used when the categories have a natural order, like rating movies from 1 to 5 stars."
+        ],
+        "detailed_responses": [
+          "It's like ranking your favorite ice cream flavors from best to worst, not just picking one!"
+        ]
+      },
+      {
+        "tag": "time_series_forecasting",
+        "patterns": [
+          "What is time series forecasting?",
+          "How do you predict the future with data?",
+          "Explain ARIMA and LSTM",
+          "Why is time important in data?",
+          "Forecasting trends in machine learning"
+        ],
+        "responses": [
+          "Time series forecasting is predicting what will happen next based on what has happened before."
+        ],
+        "detailed_responses": [
+          "It's like guessing tomorrow's weather by looking at the weather for the past week!"
+        ]
+      },
+      {
+        "tag": "sequence_modeling",
+        "patterns": [
+          "What is sequence modeling?",
+          "How do computers handle sequences?",
+          "Explain RNNs and LSTMs",
+          "Why are sequences important in ML?",
+          "Applications of sequence modeling"
+        ],
+        "responses": [
+          "Sequence modeling is when computers learn from data that comes in order, like words in a sentence or notes in a song."
+        ],
+        "detailed_responses": [
+          "It's like remembering the steps to a dance—you have to do them in the right order for it to make sense!"
+        ]
+      },
+      {
+        "tag": "attention_mechanism",
+        "patterns": [
+          "What is attention in machine learning?",
+          "How do attention mechanisms work?",
+          "Explain self-attention",
+          "Why is attention important in transformers?",
+          "Applications of attention in ML"
+        ],
+        "responses": [
+          "Attention is a way for computers to focus on the most important parts of the data when making predictions."
+        ],
+        "detailed_responses": [
+          "It's like reading a story and paying extra attention to the main character so you don't miss anything important!"
+        ]
+      },
+      {
+        "tag": "dropout_regularization",
+        "patterns": [
+          "What is dropout in neural networks?",
+          "How does dropout prevent overfitting?",
+          "Explain dropout regularization",
+          "Why randomly drop neurons?",
+          "Benefits of dropout in deep learning"
+        ],
+        "responses": [
+          "Dropout is a technique where some parts of a neural network are randomly turned off during training to help the model learn better."
+        ],
+        "detailed_responses": [
+          "It's like practicing a play with different actors missing each time, so everyone learns all the parts and the show goes on even if someone is absent!"
+        ]
+      },
+      {
+        "tag": "batch_normalization",
+        "patterns": [
+          "What is batch normalization?",
+          "How does batch normalization help training?",
+          "Explain normalization in deep learning",
+          "Why use batch normalization?",
+          "Benefits of batch normalization"
+        ],
+        "responses": [
+          "Batch normalization is a way to help neural networks learn faster and more reliably by keeping the data balanced as it moves through the layers."
+        ],
+        "detailed_responses": [
+          "It's like stirring a cake batter to make sure all the ingredients are mixed evenly before baking!"
+        ]
+      },
+      {
+        "tag": "unsupervised_pretraining",
+        "patterns": [
+          "What is unsupervised pretraining?",
+          "How do you pretrain models without labels?",
+          "Benefits of unsupervised pretraining",
+          "Explain self-supervised learning",
+          "Why pretrain before fine-tuning?"
+        ],
+        "responses": [
+          "Unsupervised pretraining is when a computer learns patterns from data without any labels before learning a specific task."
+        ],
+        "detailed_responses": [
+          "It's like exploring a new city on your own before taking a guided tour—you get a feel for the place before learning all the details!"
+        ]
+      }
+    ]
+  }
