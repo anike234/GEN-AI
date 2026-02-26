@@ -45,7 +45,20 @@
         "How do flashcards work for computers?"
       ],
       "responses": ["Supervised learning is like learning with flashcards. A teacher shows you a picture of an apple, and tells you 'This is an apple!' until you remember it."],
-      "detailed_responses": ["We show the computer a picture and tell it the answer at the same time. We say, 'Here is a dog, and here is a cat.' After seeing enough labeled pictures, the computer can guess correctly without our help!"]
+      "detailed_responses": ["We show the computer a picture and tell it the answer at the same time. We say, 'Here is a dog, and here is a cat.' After seeing enough labeled pictures, the computer can guess correctly without our help!"],
+      "equation_explanation": [
+  {
+    "equation": "(1/N) Σ L(y_i, f(x_i))",
+    "terms": {
+      "N": "Number of training samples.",
+      "y_i": "True label.",
+      "f(x_i)": "Model prediction.",
+      "L": "Loss function.",
+      "Σ": "Sum over all samples.",
+      "1/N": "Average loss factor."
+    }
+  }
+]
     },
     {
       "tag": "unsupervised_learning",
@@ -55,7 +68,18 @@
         "How do computers sort things?"
       ],
       "responses": ["Unsupervised learning is like sorting a giant box of mixed-up toys. Nobody tells you what the toys are, but you can still put all the cars in one pile and all the blocks in another!"],
-      "detailed_responses": ["We give the computer a huge pile of information without any labels. The computer uses its own brain to find patterns. It might look at pictures of animals and group all the ones with feathers together, even if it doesn't know the word 'bird'."]
+      "detailed_responses": ["We give the computer a huge pile of information without any labels. The computer uses its own brain to find patterns. It might look at pictures of animals and group all the ones with feathers together, even if it doesn't know the word 'bird'."],
+      "equation_explanation": [
+  {
+    "equation": "Σ ||x_i − μ_{c_i}||²",
+    "terms": {
+      "x_i": "Data point.",
+      "μ_{c_i}": "Centroid of assigned cluster.",
+      "||·||²": "Squared Euclidean distance.",
+      "Σ": "Sum over all data points."
+    }
+  }
+]
     },
     {
       "tag": "reinforcement_learning",
@@ -65,7 +89,21 @@
         "How do computers play games?"
       ],
       "responses": ["Reinforcement learning is exactly like training a puppy! When the puppy does a good trick, you give it a treat. When it does a bad trick, it gets no treat."],
-      "detailed_responses": ["The computer tries to play a game or solve a maze. If it makes a good move, it gets points (a treat!). If it hits a wall, it loses points. Eventually, it learns the perfect way to play just to get the highest score!"]
+      "detailed_responses": ["The computer tries to play a game or solve a maze. If it makes a good move, it gets points (a treat!). If it hits a wall, it loses points. Eventually, it learns the perfect way to play just to get the highest score!"],
+      "equation_explanation": [
+  {
+    "equation": "Q(s,a) ← Q(s,a) + α[r + γ max Q(s',a') − Q(s,a)]",
+    "terms": {
+      "Q(s,a)": "Current action-value estimate.",
+      "α": "Learning rate.",
+      "r": "Immediate reward.",
+      "γ": "Discount factor for future rewards.",
+      "s'": "Next state.",
+      "max Q(s',a')": "Best future action value.",
+      "←": "Update assignment operator."
+    }
+  }
+]
     },
     {
       "tag": "neural_network",
@@ -242,7 +280,21 @@
       ],
       "detailed_responses": [
         "Imagine you have a big pile of red apples and green apples mixed up on the floor. You want to lay a long piece of string down to separate them. SVM is like a smart robot that finds the perfect spot for the string so it's as far away from the apples as possible. It wants a big 'empty hallway' between the two groups so it doesn't make any mistakes! "
-      ]
+      ],
+      "equation_explanation": [
+  {
+    "equation": "w · x + b = 0; minimize (1/2)||w||² subject to y_i(w · x_i + b) ≥ 1",
+    "terms": {
+      "w": "Weight vector defining hyperplane orientation.",
+      "x": "Input feature vector.",
+      "b": "Bias shifting the hyperplane.",
+      "w · x": "Dot product between weights and input.",
+      "y_i": "True label (+1 or -1).",
+      "||w||²": "Squared magnitude of weight vector.",
+      "≥ 1": "Margin constraint ensuring correct classification."
+    }
+  }
+]
     },
     {
       "tag": "random_forest",
@@ -261,7 +313,19 @@
       ],
       "detailed_responses": [
         "Imagine you want to know if a movie is good. Instead of asking just one friend (who might be grumpy today), you ask 100 friends! Some might look at the actors, some at the music, and some at the story. Then, you take a vote. Because you asked a whole 'forest' of friends instead of just one, your final answer is much more likely to be right!"
-      ]
+      ],
+      "equation_explanation": [
+  {
+    "equation": "P(y|x) = (1/T) Σ P_t(y|x)",
+    "terms": {
+      "P(y|x)": "Final predicted class probability.",
+      "T": "Number of trees in the forest.",
+      "P_t(y|x)": "Probability predicted by tree t.",
+      "Σ": "Sum over all trees.",
+      "1/T": "Averaging factor."
+    }
+  }
+]
     },
     {
       "tag": "gradient_boosting",
@@ -280,7 +344,19 @@
       ],
       "detailed_responses": [
         "Imagine you are learning to draw a dog. Your first drawing is a bit messy. Your teacher looks at it and says, 'The ears are wrong.' So, in your next drawing, you focus really hard on fixing the ears. Then the teacher says, 'Now the tail is too short.' You keep drawing new pictures, each time only fixing the mistakes from the last one, until the final drawing is perfect! "
-      ]
+      ],
+      "equation_explanation": [
+  {
+    "equation": "F_m(x) = F_{m-1}(x) + η · h_m(x)",
+    "terms": {
+      "F_m(x)": "Updated ensemble model.",
+      "F_{m-1}(x)": "Previous ensemble model.",
+      "η": "Learning rate.",
+      "h_m(x)": "New weak learner fitted to residuals.",
+      "m": "Boosting iteration."
+    }
+  }
+]
     },
     {
       "tag": "epoch",
@@ -299,7 +375,17 @@
       ],
       "detailed_responses": [
         "Imagine you have a giant picture book with 100 pages of animals. An 'epoch' is when you have looked at every single page from start to finish one time. To really learn what a lion looks like, you might need to flip through the whole book 20 times. Each time you finish the whole book, that's one epoch! "
-      ]
+      ],
+      "equation_explanation": [
+    {
+    "equation": "Iterations per epoch = N / B",
+    "terms": {
+      "N": "Total number of training samples.",
+      "B": "Batch size.",
+      "Iterations per epoch": "Number of batches needed to process the dataset once."
+    }
+  }
+]
     },
     {
       "tag": "train_validation_test",
@@ -355,7 +441,20 @@
       ],
       "detailed_responses": [
         "Imagine you are trying to taste-test 100 chocolate chip cookies to figure out the perfect recipe. If you try to shove all 100 cookies into your mouth at the exact same time, you'll get a tummy ache and won't taste anything (that's like a computer freezing!). But, if you eat them one tiny crumb at a time, it will take you a whole year to finish (that's the computer being way too slow!). Instead, you put 5 cookies on a plate, eat them, think about the taste, and then grab the next plate. That plate of 5 cookies is the 'batch size'! It tells the computer exactly how many examples to bite into before taking a moment to chew, think, and get smarter."
-      ]
+      ],
+    "equation_explanation": [
+  {
+    "equation": "w = w - η * (1/B) * Σ ∇L_i",
+    "terms": {
+      "w": "Model weights being updated",
+      "η": "Learning rate",
+      "B": "Batch size",
+      "∇L_i": "Gradient of loss for sample i",
+      "Σ": "Summation over batch",
+      "1/B": "Gradient averaging factor"
+    }
+  }
+]
     },
     {
       "tag": "bot_status",
@@ -393,7 +492,22 @@
       ],
       "detailed_responses": [
         "Imagine you are watching a cat in a dark room. You see its eyes for a second, then it moves. Even when you can't see it, you know it didn't just disappear—it probably walked a little to the left or right. The computer uses a 'Transition Model' $P(X_t | X_{t-1})$ to guess where the cat goes next, and a 'Sensor Model' $P(e_t | X_t)$ to understand the clues it sees right now. It's like keeping a running tally of 'where could the cat be?' so it never loses its place in the story. "
-      ]
+      ],
+      "equation_explanation": [
+  {
+    "equation": "P(X_t|e₁:ₜ) ∝ P(e_t|X_t) Σ P(X_t|X_{t-1}) P(X_{t-1}|e₁:ₜ₋₁)",
+    "terms": {
+      "X_t": "Hidden state at time t.",
+      "e₁:ₜ": "Evidence from time 1 to t.",
+      "P(X_t|e₁:ₜ)": "Posterior belief at time t.",
+      "P(e_t|X_t)": "Likelihood of current evidence.",
+      "P(X_t|X_{t-1})": "State transition probability.",
+      "P(X_{t-1}|e₁:ₜ₋₁)": "Previous belief.",
+      "∝": "Proportional (requires normalization).",
+      "Σ": "Sum over previous states."
+    }
+  }
+]
     },
     {
       "tag": "hmm_hidden_markov_models",
@@ -454,7 +568,20 @@
       ],
       "detailed_responses": [
         "Imagine you are walking with your eyes closed. You 'feel' how many steps you took (that's your guess), but you also listen for the sound of the wall (that's your sensor). Sometimes your feet slip and sometimes your ears hear an echo. The Kalman Filter takes your guess and your hearing and mixes them together to find the perfect middle spot. It uses the update rule: $/hat{x}_{k} = /hat{x}_{k}^- + K_k(z_k - H/hat{x}_{k}^-)$ where $K$ is the 'Kalman Gain'—it’s a magic number that decides whether to trust your feet or your ears more! "
-      ]
+      ],
+      "equation_explanation": [
+  {
+    "equation": "x̂ = x̂⁻ + K(z − Hx̂⁻)",
+    "terms": {
+      "x̂⁻": "Predicted state estimate before update.",
+      "x̂": "Updated state estimate.",
+      "z": "Measurement vector.",
+      "H": "Observation matrix.",
+      "K": "Kalman gain determining correction strength.",
+      "z − Hx̂⁻": "Innovation (measurement residual)."
+    }
+  }
+]
     },
     {
       "tag": "nlp_natural_language_processing",
