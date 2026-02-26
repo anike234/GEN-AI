@@ -151,6 +151,9 @@ def chatbot_response(user_input, threshold=0.55):
     if last_intent and any(phrase in lower_input for phrase in follow_up_phrases):
         if "detailed_responses" in last_intent:
             return random.choice(last_intent["detailed_responses"])
+        elif "equation_explanations" in last_intent:
+            return random.choice(last_intent["equation_explanation"])
+        
         else:
             return random.choice(last_intent["responses"])
 

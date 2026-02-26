@@ -351,7 +351,7 @@
         "Define batch size"
       ],
       "responses": [
-        "Batch size is just the number of examples the computer looks at before it stops to learn from them. It's like carrying a stack of books—you can't carry the whole library at once, so you carry a small pile at a time!"
+        "Batch size is just the number of examples the computer looks at before it stops to learn from them. It's like carrying a stack of books you can't carry the whole library at once, so you carry a small pile at a time!"
       ],
       "detailed_responses": [
         "Imagine you are trying to taste-test 100 chocolate chip cookies to figure out the perfect recipe. If you try to shove all 100 cookies into your mouth at the exact same time, you'll get a tummy ache and won't taste anything (that's like a computer freezing!). But, if you eat them one tiny crumb at a time, it will take you a whole year to finish (that's the computer being way too slow!). Instead, you put 5 cookies on a plate, eat them, think about the taste, and then grab the next plate. That plate of 5 cookies is the 'batch size'! It tells the computer exactly how many examples to bite into before taking a moment to chew, think, and get smarter."
@@ -414,8 +414,27 @@
       ],
       "detailed_responses": [
         "Imagine your friend is inside a house and you are outside. You can't see what they are doing (that's the 'Hidden' part), but you can see what they bring out to the trash. If they throw away a pizza box, you guess they ate pizza! If they bring out an umbrella, you guess they are going for a walk. We use the equation $P(X_{1:t}, e_{1:t}) = P(X_0) /prod_{i=1}^{t} P(X_i | X_{i-1}) P(e_i | X_i)$ to find the most likely story of what happened inside the house by looking at the trash outside."
-      ]
+      ],
+      "equation_explanation": [
+    {
+      "term": "$P(X_0)$",
+      "meaning": "Prior Probability: The starting distribution of the hidden states at time zero."
     },
+    {
+      "term": "$P(X_i | X_{i-1})$",
+      "meaning": "Transition Model: The probability of moving from one hidden state to the next."
+    },
+    {
+      "term": "$P(e_i | X_i)$",
+      "meaning": "Emission Model: The probability that a specific hidden state produces a specific visible observation."
+    },
+    {
+      "term": "$\\prod_{i=1}^{t}$",
+      "meaning": "Chain Rule Application: Multiplying these probabilities together assumes each step is independent of the past, given the previous state (Markov Property)."
+    }
+  ]
+    },
+    
     {
       "tag": "kalman_filters",
       "patterns": [
