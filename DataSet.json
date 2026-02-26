@@ -7,6 +7,24 @@
       "detailed_responses": ["I love talking about computers! You can ask me what machine learning is, or how computers use brains just like we do!"]
     },
     {
+  "tag": "bye",
+  "patterns": [
+    "Bye",
+    "Goodbye",
+    "See you",
+    "See you later",
+    "Talk to you later",
+    "I am leaving",
+    "Catch you later"
+  ],
+  "responses": [
+    "Goodbye! It was fun talking about how computers learn. Come back anytime!"
+  ],
+  "detailed_responses": [
+    "Bye for now! Whenever you're curious about machine learning again, just come back and we can explore more together."
+  ]
+},
+    {
       "tag": "ml_intro",
       "patterns": [
         "What is machine learning?",
@@ -46,7 +64,7 @@
       ],
       "responses": ["Supervised learning is like learning with flashcards. A teacher shows you a picture of an apple, and tells you 'This is an apple!' until you remember it."],
       "detailed_responses": ["We show the computer a picture and tell it the answer at the same time. We say, 'Here is a dog, and here is a cat.' After seeing enough labeled pictures, the computer can guess correctly without our help!"],
-      "equation_explanation": [
+      "equation_explaination": [
   {
     "equation": "(1/N) Σ L(y_i, f(x_i))",
     "terms": {
@@ -90,7 +108,7 @@
       ],
       "responses": ["Reinforcement learning is exactly like training a puppy! When the puppy does a good trick, you give it a treat. When it does a bad trick, it gets no treat."],
       "detailed_responses": ["The computer tries to play a game or solve a maze. If it makes a good move, it gets points (a treat!). If it hits a wall, it loses points. Eventually, it learns the perfect way to play just to get the highest score!"],
-      "equation_explanation": [
+      "equation_explaination": [
   {
     "equation": "Q(s,a) ← Q(s,a) + α[r + γ max Q(s',a') − Q(s,a)]",
     "terms": {
@@ -281,7 +299,7 @@
       "detailed_responses": [
         "Imagine you have a big pile of red apples and green apples mixed up on the floor. You want to lay a long piece of string down to separate them. SVM is like a smart robot that finds the perfect spot for the string so it's as far away from the apples as possible. It wants a big 'empty hallway' between the two groups so it doesn't make any mistakes! "
       ],
-      "equation_explanation": [
+      "equation_explaination": [
   {
     "equation": "w · x + b = 0; minimize (1/2)||w||² subject to y_i(w · x_i + b) ≥ 1",
     "terms": {
@@ -314,7 +332,7 @@
       "detailed_responses": [
         "Imagine you want to know if a movie is good. Instead of asking just one friend (who might be grumpy today), you ask 100 friends! Some might look at the actors, some at the music, and some at the story. Then, you take a vote. Because you asked a whole 'forest' of friends instead of just one, your final answer is much more likely to be right!"
       ],
-      "equation_explanation": [
+      "equation_explaination": [
   {
     "equation": "P(y|x) = (1/T) Σ P_t(y|x)",
     "terms": {
@@ -345,7 +363,7 @@
       "detailed_responses": [
         "Imagine you are learning to draw a dog. Your first drawing is a bit messy. Your teacher looks at it and says, 'The ears are wrong.' So, in your next drawing, you focus really hard on fixing the ears. Then the teacher says, 'Now the tail is too short.' You keep drawing new pictures, each time only fixing the mistakes from the last one, until the final drawing is perfect! "
       ],
-      "equation_explanation": [
+      "equation_explaniation": [
   {
     "equation": "F_m(x) = F_{m-1}(x) + η · h_m(x)",
     "terms": {
@@ -376,7 +394,7 @@
       "detailed_responses": [
         "Imagine you have a giant picture book with 100 pages of animals. An 'epoch' is when you have looked at every single page from start to finish one time. To really learn what a lion looks like, you might need to flip through the whole book 20 times. Each time you finish the whole book, that's one epoch! "
       ],
-      "equation_explanation": [
+      "equation_explaination": [
     {
     "equation": "Iterations per epoch = N / B",
     "terms": {
@@ -442,7 +460,7 @@
       "detailed_responses": [
         "Imagine you are trying to taste-test 100 chocolate chip cookies to figure out the perfect recipe. If you try to shove all 100 cookies into your mouth at the exact same time, you'll get a tummy ache and won't taste anything (that's like a computer freezing!). But, if you eat them one tiny crumb at a time, it will take you a whole year to finish (that's the computer being way too slow!). Instead, you put 5 cookies on a plate, eat them, think about the taste, and then grab the next plate. That plate of 5 cookies is the 'batch size'! It tells the computer exactly how many examples to bite into before taking a moment to chew, think, and get smarter."
       ],
-    "equation_explanation": [
+    "equation_explaination": [
   {
     "equation": "w = w - η * (1/B) * Σ ∇L_i",
     "terms": {
@@ -493,7 +511,7 @@
       "detailed_responses": [
         "Imagine you are watching a cat in a dark room. You see its eyes for a second, then it moves. Even when you can't see it, you know it didn't just disappear—it probably walked a little to the left or right. The computer uses a 'Transition Model' $P(X_t | X_{t-1})$ to guess where the cat goes next, and a 'Sensor Model' $P(e_t | X_t)$ to understand the clues it sees right now. It's like keeping a running tally of 'where could the cat be?' so it never loses its place in the story. "
       ],
-      "equation_explanation": [
+      "equation_explaination": [
   {
     "equation": "P(X_t|e₁:ₜ) ∝ P(e_t|X_t) Σ P(X_t|X_{t-1}) P(X_{t-1}|e₁:ₜ₋₁)",
     "terms": {
@@ -529,7 +547,7 @@
       "detailed_responses": [
         "Imagine your friend is inside a house and you are outside. You can't see what they are doing (that's the 'Hidden' part), but you can see what they bring out to the trash. If they throw away a pizza box, you guess they ate pizza! If they bring out an umbrella, you guess they are going for a walk. We use the equation $P(X_{1:t}, e_{1:t}) = P(X_0) /prod_{i=1}^{t} P(X_i | X_{i-1}) P(e_i | X_i)$ to find the most likely story of what happened inside the house by looking at the trash outside."
       ],
-      "equation_explanation": [
+      "equation_explaination": [
     {
       "term": "$P(X_0)$",
       "meaning": "Prior Probability: The starting distribution of the hidden states at time zero."
@@ -567,9 +585,9 @@
         "A Kalman Filter is a super-smart math tool that helps a robot know exactly where it is, even if its sensors are a bit shaky or blurry."
       ],
       "detailed_responses": [
-        "Imagine you are walking with your eyes closed. You 'feel' how many steps you took (that's your guess), but you also listen for the sound of the wall (that's your sensor). Sometimes your feet slip and sometimes your ears hear an echo. The Kalman Filter takes your guess and your hearing and mixes them together to find the perfect middle spot. It uses the update rule: $/hat{x}_{k} = /hat{x}_{k}^- + K_k(z_k - H/hat{x}_{k}^-)$ where $K$ is the 'Kalman Gain'—it’s a magic number that decides whether to trust your feet or your ears more! "
+        "Imagine you are walking with your eyes closed. You 'feel' how many steps you took (that's your guess), but you also listen for the sound of the wall (that's your sensor). Sometimes your feet slip and sometimes your ears hear an echo. The Kalman Filter takes your guess and your hearing and mixes them together to find the perfect middle spot. It uses the update rule: $\\hat{x}_{k} = \\hat{x}_{k}^- + K_k(z_k - H\\hat{x}_{k}^-)$ where $K$ is the 'Kalman Gain'—it’s a magic number that decides whether to trust your feet or your ears more! "
       ],
-      "equation_explanation": [
+      "equation_explianation": [
   {
     "equation": "x̂ = x̂⁻ + K(z − Hx̂⁻)",
     "terms": {

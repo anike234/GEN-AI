@@ -237,7 +237,7 @@ last_confidence = 0.0
 # ----------------------------
 follow_up_phrases = [
     "explain more", "more detail", "more details", "elaborate",
-    "expand", "tell me more", "detailed explanation", "go deeper",
+    "expand", "tell me more", "detailed explaination", "go deeper",
     "give me an example", "what does that mean",
     "in detail", "detailed response", "give me in detail",
     "give me details", "explain in detail", "tell me exactly",
@@ -263,7 +263,7 @@ equation_phrases = [
 def format_equation(eq_obj):
     """Format equation dictionary nicely"""
     if isinstance(eq_obj, dict):
-        output = f"\nEquation:\n{eq_obj['equation']}\n\nExplanation:\n"
+        output = f"\nEquation:\n{eq_obj['equation']}\n\nExplaination:\n"
         for term, meaning in eq_obj["terms"].items():
             output += f"- {term}: {meaning}\n"
         return output
@@ -284,8 +284,8 @@ def chatbot_response(user_input, threshold=0.55):
     # 1️⃣ Equation follow-up (highest priority)
     # -------------------------------------------------
     if last_intent and is_equation_request:
-        if "equation_explanation" in last_intent:
-            eq = random.choice(last_intent["equation_explanation"])
+        if "equation_explaination" in last_intent:
+            eq = random.choice(last_intent["equation_explaination"])
             return format_equation(eq)
 
     # -------------------------------------------------
@@ -298,8 +298,8 @@ def chatbot_response(user_input, threshold=0.55):
     ):
         if "detailed_responses" in last_intent:
             return random.choice(last_intent["detailed_responses"])
-        elif "equation_explanation" in last_intent:
-            eq = random.choice(last_intent["equation_explanation"])
+        elif "equation_explaination" in last_intent:
+            eq = random.choice(last_intent["equation_explaination"])
             return format_equation(eq)
         else:
             return random.choice(last_intent.get("responses", ["Can you clarify?"]))
@@ -324,7 +324,7 @@ def chatbot_response(user_input, threshold=0.55):
         last_confidence = best_score
 
         # 🔷 If user asked equation directly
-        if is_equation_request and "equation_explanation" in matched_intent:
+        if is_equation_request and "equation_explaination" in matched_intent:
             eq = random.choice(matched_intent["equation_explanation"])
             return format_equation(eq)
 
