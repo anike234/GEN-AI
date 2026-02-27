@@ -460,16 +460,13 @@
       "detailed_responses": [
         "Imagine you are trying to taste-test 100 chocolate chip cookies to figure out the perfect recipe. If you try to shove all 100 cookies into your mouth at the exact same time, you'll get a tummy ache and won't taste anything (that's like a computer freezing!). But, if you eat them one tiny crumb at a time, it will take you a whole year to finish (that's the computer being way too slow!). Instead, you put 5 cookies on a plate, eat them, think about the taste, and then grab the next plate. That plate of 5 cookies is the 'batch size'! It tells the computer exactly how many examples to bite into before taking a moment to chew, think, and get smarter."
       ],
-    "equation_explaination": [
-  {
-    "equation": "w = w - η * (1/B) * Σ ∇L_i",
+   "equation_explaination": [
+    {
+    "equation": "B = N / Iterations per epoch",
     "terms": {
-      "w": "Model weights being updated",
-      "η": "Learning rate",
-      "B": "Batch size",
-      "∇L_i": "Gradient of loss for sample i",
-      "Σ": "Summation over batch",
-      "1/B": "Gradient averaging factor"
+      "B": "Batch size.",
+      "N": "Total number of training samples.",
+      "Iterations per epoch": "Number of batches needed to process the dataset once."
     }
   }
 ]
