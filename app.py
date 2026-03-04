@@ -481,21 +481,57 @@ def chatbot_response(user_input: str):
 # 🎨 STREAMLIT UI
 # =====================================================
 
-st.title("🧠 Educational Hybrid Chatbot")
+# st.title("🧠 Educational Explainable Chatbot")
 
-# display chat history
-for role, msg in st.session_state.history:
-    with st.chat_message(role):
-        st.markdown(msg)
+# # display chat historyclear 
+# for role, msg in st.session_state.history:
+#     with st.chat_message(role):
+#         st.markdown(msg)
 
-# user input
-user_input = st.chat_input("Ask something...")
+# # user input
+# user_input = st.chat_input("Ask something...")
 
-if user_input:
-    st.session_state.history.append(("user", user_input))
+# if user_input:
+#     st.session_state.history.append(("user", user_input))
 
+#     with st.chat_message("assistant"):
+#         reply = chatbot_response(user_input)
+#         st.markdown(reply)
+
+#     st.session_state.history.append(("assistant", reply))
+# =====================================================
+# 🎨 STREAMLIT UI (FIXED VERSION)
+# =====================================================
+
+st.title("🧠 Educational Explainable Chatbot")
+
+# Initialize chat history properly
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+# Display chat history
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+
+# User input
+if user_input := st.chat_input("Ask something..."):
+
+    # Store and show user message
+    st.session_state.messages.append({
+        "role": "user",
+        "content": user_input
+    })
+    with st.chat_message("user"):
+        st.markdown(user_input)
+
+    # Generate response
+    reply = chatbot_response(user_input)
+
+    # Store and show assistant message
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": reply
+    })
     with st.chat_message("assistant"):
-        reply = chatbot_response(user_input)
         st.markdown(reply)
-
-    st.session_state.history.append(("assistant", reply))
