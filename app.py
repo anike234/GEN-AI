@@ -301,201 +301,192 @@
 #         st.write(msg)
 import streamlit as st
 import json
-import random
 import numpy as np
+import random
 import requests
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# =====================================================
-# ⚙️ CONFIG
-# =====================================================
-
+# ----------------------------
+# 1️⃣ Configuration
+# ----------------------------
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MODEL_NAME = "llama3"
-THRESHOLD = 0.55
+THRESHOLD = 0.40
 
-# =====================================================
-# 🚀 LOAD MODEL (cached for speed)
-# =====================================================
-
+# --- Streamlit Caching ---
+# We cache the model and dataset so Streamlit doesn't reload them on every message!
 @st.cache_resource
-def load_embedding_model():
+def load_model():
     return SentenceTransformer("all-MiniLM-L6-v2")
 
-model = load_embedding_model()
-
-# =====================================================
-# 📚 LOAD DATASET
-# =====================================================
-
-@st.cache_resource
+@st.cache_data
 def load_dataset():
-    with open("DataSet.json", "r", encoding="utf-8", errors="replace") as f:
-        data = json.load(f)
-
-    sentences = []
-    intent_map = []
-
-    for intent in data["intents"]:
-        for pattern in intent["patterns"]:
+    try:
+        with open("DataSet.json", "r", encoding="utf-8", errors="replace") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        st.error("⚠️ Error: DataSet.json not found. Please make sure the file is in the same folder.")
+        st.stop()
+        
+    sentences, intent_map = [], []
+    for intent in data.get("intents", []):
+        for pattern in intent.get("patterns", []):
             sentences.append(pattern)
             intent_map.append(intent)
+    return sentences, intent_map
 
-    embeddings = model.encode(sentences)
-    return sentences, intent_map, embeddings
+model = load_model()
+sentences, intent_map = load_dataset()
 
-sentences, intent_map, dataset_embeddings = load_dataset()
+@st.cache_resource
+def get_embeddings(_model, _sentences):
+    return _model.encode(_sentences)
 
-# =====================================================
-# 🧠 SESSION MEMORY
-# =====================================================
+dataset_embeddings = get_embeddings(model, sentences)
 
-if "history" not in st.session_state:
-    st.session_state.history = []
+# ----------------------------
+# 2️⃣ Constants & Phrases
+# ----------------------------
+ELI5_PHRASES = ["eli5", "explain like i'm 5", "explain like i am 5", "like i'm five", "explain simply", "simple explanation", "very simple"]
+DETAIL_PHRASES = ["in detail", "detailed", "deep explanation", "technical explanation", "explain in detail", "tell me exactly", "go deeper", "explain me in detail", "give me a detailed response", "more detail", "explain more", "elaborate"]
+equation_phrases = ["equation", "formula", "mathematical form", "write equation", "write formula", "give equation", "show equation", "equation of", "formula of"]
 
-if "last_intent" not in st.session_state:
-    st.session_state.last_intent = None
-
-if "last_confidence" not in st.session_state:
-    st.session_state.last_confidence = 0.0
-
-# =====================================================
-# 🔍 PHRASES (MERGED FOLLOW-UP + ELI5)
-# =====================================================
-
-EXPLAIN_MORE_PHRASES = [
-    "explain more", "more detail", "more details", "elaborate",
-    "expand", "tell me more", "go deeper", "give me an example",
-    "in detail", "give me details", "explain in detail",
-    "make it clearer", "how does that work",
-    "eli5", "explain like i'm 5", "explain like i am 5",
-    "simple explanation", "explain simply"
-]
-
-EQUATION_PHRASES = [
-    "equation", "formula", "mathematical form",
-    "write equation", "write formula",
-    "give equation", "show equation"
-]
-
-# =====================================================
-# 🧾 HELPERS
-# =====================================================
+# ----------------------------
+# 3️⃣ Helper Functions
+# ----------------------------
+def call_ollama(prompt: str) -> str:
+    payload = {"model": MODEL_NAME, "prompt": prompt, "stream": False}
+    try:
+        response = requests.post(OLLAMA_URL, json=payload)
+        response.raise_for_status()
+        return response.json()["response"]
+    except Exception as e:
+        return f"⚠️ Local AI model not responding. Ensure Ollama is running! Error: {e}"
 
 def format_equation(eq_obj):
     if isinstance(eq_obj, dict):
         output = f"\n**Equation:**\n{eq_obj['equation']}\n\n**Explanation:**\n"
         for term, meaning in eq_obj["terms"].items():
-            output += f"- {term}: {meaning}\n"
+            output += f"- **{term}**: {meaning}\n"
         return output
     return str(eq_obj)
 
+def build_system_prompt(text: str):
+    base = (
+        "You are an expert educational tutor specializing STRICTLY in Artificial Intelligence, "
+        "Machine Learning, and Data Science. You MUST assume every single question or acronym is about Machine Learning. "
+        "For example, 'ML' ALWAYS means Machine Learning. Always answer the USER'S QUESTION directly. "
+    )
+    if any(p in text for p in ELI5_PHRASES):
+        return base + "Explain in very simple terms like the user is 5 years old. Use easy, relatable, non-technical examples (like toys, pets, or food)."
+    if any(p in text for p in DETAIL_PHRASES):
+        return base + "Provide a thorough, step-by-step, and structured explanation of the ML concept. Go into deep detail, but KEEP IT SIMPLE. Use plain everyday English and always explain complex concepts using real-life analogies."
+    return base + "Give a clear, easy-to-understand explanation suitable for a beginner student. Avoid overly complex jargon."
 
-def ask_ollama(prompt: str, mode: str = "normal"):
-    """Call local llama3 via Ollama"""
+# ----------------------------
+# 4️⃣ Core Chatbot Logic
+# ----------------------------
+def get_bot_response(user_input: str) -> str:
+    user_input_lower = user_input.lower().strip()
+    
+    is_equation_request = any(p in user_input_lower for p in equation_phrases)
+    is_detail_follow_up = any(p in user_input_lower for p in DETAIL_PHRASES) and len(user_input_lower.split()) <= 15
+    is_equation_follow_up = is_equation_request and len(user_input_lower.split()) <= 12
 
-    if mode == "eli5":
-        system_prompt = "Explain in very simple terms like teaching a 5 year old."
-    elif mode == "detail":
-        system_prompt = "Explain in detailed technical depth."
-    else:
-        system_prompt = "Answer clearly and correctly."
+    # A. Handle Pure Follow-ups using Streamlit Memory
+    if is_equation_follow_up and st.session_state.last_intent:
+        eq_key = "equation_explaination" if "equation_explaination" in st.session_state.last_intent else "equation_explanation"
+        if eq_key in st.session_state.last_intent:
+            return format_equation(random.choice(st.session_state.last_intent[eq_key]))
+        else:
+            prompt = f"Provide the mathematical equation and explain its terms clearly.\n\nContext: We were discussing '{st.session_state.last_meaningful_query}'.\nUser request: {user_input}\nAnswer:"
+            return call_ollama(prompt)
 
-    payload = {
-        "model": MODEL_NAME,
-        "prompt": system_prompt + "\n\nUser: " + prompt,
-        "stream": False,
-    }
+    if is_detail_follow_up and st.session_state.last_meaningful_query:
+        sys_prompt = build_system_prompt(user_input_lower)
+        prompt = f"{sys_prompt}\n\nContext: We were discussing '{st.session_state.last_meaningful_query}'.\nUser request: {user_input}\nAnswer:"
+        return call_ollama(prompt)
 
-    try:
-        r = requests.post(OLLAMA_URL, json=payload, timeout=120)
-        if r.status_code == 200:
-            return r.json()["response"]
-        return "⚠️ Ollama error"
-    except Exception as e:
-        return f"⚠️ Ollama connection failed: {e}"
+    # Update memory for the next round
+    st.session_state.last_meaningful_query = user_input
 
-
-# =====================================================
-# 🤖 MAIN ROUTER (HYBRID BRAIN)
-# =====================================================
-
-def chatbot_response(user_input: str):
-    lower_input = user_input.lower().strip()
-
-    is_explain_more = any(p in lower_input for p in EXPLAIN_MORE_PHRASES)
-    is_equation_request = any(p in lower_input for p in EQUATION_PHRASES)
-
-    # -------------------------------------------------
-    # 1️⃣ Equation follow-up
-    # -------------------------------------------------
-    if st.session_state.last_intent and is_equation_request:
-        intent = st.session_state.last_intent
-
-        if "equation_explaination" in intent:
-            eq = random.choice(intent["equation_explaination"])
-            return format_equation(eq)
-
-    # -------------------------------------------------
-    # 2️⃣ Follow-up / ELI5 → use Ollama on SAME topic
-    # -------------------------------------------------
-    if is_explain_more:
-        if st.session_state.last_intent:
-            topic = st.session_state.last_intent.get("tag", "")
-            if topic:
-                return ask_ollama(f"Explain {topic}", mode="eli5")
-        return ask_ollama(user_input, mode="eli5")
-
-    # -------------------------------------------------
-    # 3️⃣ DATASET SEMANTIC MATCH
-    # -------------------------------------------------
+    # B. Standard Intent Matching (Dataset)
     user_embedding = model.encode([user_input])
     similarities = cosine_similarity(user_embedding, dataset_embeddings)[0]
+    best_match_idx = np.argmax(similarities)
+    best_score = similarities[best_match_idx]
 
-    best_idx = np.argmax(similarities)
-    best_score = similarities[best_idx]
-
-    # -------------------------------------------------
-    # 4️⃣ If confident → USE DATASET
-    # -------------------------------------------------
     if best_score >= THRESHOLD:
-        matched_intent = intent_map[best_idx]
-
+        matched_intent = intent_map[best_match_idx]
         st.session_state.last_intent = matched_intent
-        st.session_state.last_confidence = float(best_score)
 
-        if is_equation_request and "equation_explaination" in matched_intent:
-            eq = random.choice(matched_intent["equation_explaination"])
-            return format_equation(eq)
+        if is_equation_request:
+            eq_key = "equation_explaination" if "equation_explaination" in matched_intent else "equation_explanation"
+            if eq_key in matched_intent:
+                return format_equation(random.choice(matched_intent[eq_key]))
 
         return random.choice(matched_intent.get("responses", ["Okay."]))
 
-    # -------------------------------------------------
-    # 5️⃣ Otherwise → Ollama fallback
-    # -------------------------------------------------
-    return ask_ollama(user_input, mode="detail")
+    # C. Smart Fallback (Ollama)
+    sys_prompt = build_system_prompt(user_input_lower)
+    prompt = f"{sys_prompt}\n\nUser question: {user_input}\nAnswer:"
+    return call_ollama(prompt)
 
+# ----------------------------
+# 5️⃣ Streamlit UI Setup
+# ----------------------------
+st.set_page_config(page_title="ELI5 ML Tutor", page_icon="🤖")
+st.title("🤖 ELI5 Machine Learning Bot")
+st.markdown("Ask me anything about how computers learn!")
 
-# =====================================================
-# 🎨 STREAMLIT UI
-# =====================================================
+# Initialize Memory
+if "messages" not in st.session_state:
+    st.session_state.messages = [{"role": "assistant", "content": "Hello! I am your Machine Learning tutor. What would you like to learn today?"}]
+if "last_intent" not in st.session_state:
+    st.session_state.last_intent = None
+if "last_meaningful_query" not in st.session_state:
+    st.session_state.last_meaningful_query = ""
 
-st.title("🧠 Educational Hybrid Chatbot")
+# --- The Dynamic Roadmap Sidebar ---
+with st.sidebar:
+    st.header("Few quick topics to ask in Machine Learning:")
+    st.write("Click a topic below to ask the bot about it:")
+    
+    # These buttons will instantly trigger a message!
+    topics = [
+        "What is Machine Learning?", 
+        "Explain Linear Regression", 
+        "What is a Neural Network?", 
+        "Explain Overfitting", 
+        "What is Supervised Learning?",
+        "What is SVM"
+    ]
+    for topic in topics:
+        if st.button(topic):
+            st.session_state.sidebar_prompt = topic
 
-# display chat history
-for role, msg in st.session_state.history:
-    with st.chat_message(role):
-        st.markdown(msg)
+# Draw all past messages
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
-# user input
-user_input = st.chat_input("Ask something...")
+# Check if input came from the sidebar buttons OR the text box
+prompt = st.chat_input("Ask a machine learning question...")
+if "sidebar_prompt" in st.session_state:
+    prompt = st.session_state.sidebar_prompt
+    del st.session_state.sidebar_prompt
 
-if user_input:
-    st.session_state.history.append(("user", user_input))
-
+# Process the input and fix the UI lag
+if prompt:
+    # Immediately draw user message
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+        
+    # Show loading spinner while model runs
     with st.chat_message("assistant"):
-        reply = chatbot_response(user_input)
-        st.markdown(reply)
-
-    st.session_state.history.append(("assistant", reply))
+        with st.spinner("Thinking..."):
+            response = get_bot_response(prompt)
+        st.markdown(response)
+        st.session_state.messages.append({"role": "assistant", "content": response})
